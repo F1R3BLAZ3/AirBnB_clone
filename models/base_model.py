@@ -3,10 +3,10 @@
 import cmd
 from uuid import uuid4
 from datetime import datetime
-from models import storage
 
 class BaseModel:
     def __init__(self, *args, **kwargs):
+        from models import storage
         if args:
             for values in args:
                 print(values)
@@ -15,7 +15,9 @@ class BaseModel:
             # Remove '__class__' from kwargs to prevent it from becoming an attribute
             class_name = kwargs.pop('__class__', None)
             if class_name:
-                self.__class__ = class_name
+                cls = globals().get(class_name, None)
+                if cls:
+                    self.__class__ = cls
 
             for key, value in kwargs.items():
                 if key == 'created_at' or key == 'updated_at':
@@ -35,6 +37,7 @@ class BaseModel:
         return "[{}] ({}) {}".format(self.__class__.__name__, self.id, self.__dict__)
 
     def save(self):
+        from models import storage
         self.updated_at = datetime.now()
         storage.save()
     
