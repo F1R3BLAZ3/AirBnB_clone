@@ -13,21 +13,27 @@ from models.place import Place
 from models.review import Review
 from models.state import State
 from models.user import User
+
+
 class HBNBCommand(cmd.Cmd):
     """HBNB Class """
-    prompt = '(hbnb) '
+    prompt = "(hbnb) "
     classes = {'BaseModel': BaseModel, 'Amenity': Amenity,
                'State': State, 'Place': Place, 'Review': Review,
                'User': User, 'City': City}
+
     def do_quit(self, argument):
         """ Defines quit option"""
         return True
+
     def do_EOF(self, argument):
         """ Defines EOF option"""
         return True
+
     def emptyline(self):
         """ Defines Empty option"""
         pass
+
     def do_create(self, argument):
         """Creates an instance of BaseModel"""
         if argument:
@@ -42,6 +48,7 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("** class name missing **")
         return
+
     def do_show(self, argument):
         """string representation based on the class name and id"""
         tokens = shlex.split(argument)
@@ -60,6 +67,7 @@ class HBNBCommand(cmd.Cmd):
             else:
                 print("** no instance found **")
         return
+
     def do_destroy(self, argument):
         """Deletes an instance based on the class name and id"""
         tokensD = shlex.split(argument)
@@ -88,6 +96,7 @@ class HBNBCommand(cmd.Cmd):
             #         return
             # print("** instance id missing **")
             # models.storage.save()
+
     def do_all(self, argument):
         """all string representation of all instances"""
         tokensA = shlex.split(argument)
@@ -116,6 +125,7 @@ class HBNBCommand(cmd.Cmd):
                     listI.append(representation_Class)
             # if listI:
             print(listI)
+
     def do_update(self, argument):
         """Updates an instance based on the class name and id """
         tokensU = shlex.split(argument)
@@ -148,6 +158,7 @@ class HBNBCommand(cmd.Cmd):
             pass
         setattr(instanceU, tokensU[2], tokensU[3])
         models.storage.save()
+
     def do_count(self, argument):
         """  retrieve the number of instances of a class """
         tokensA = shlex.split(argument)
@@ -162,6 +173,7 @@ class HBNBCommand(cmd.Cmd):
                 if className[0] == tokensA[0]:
                     num_instances += 1
             print(num_instances)
+
     def precmd(self, argument):
         """ executed just before the command line line is interpreted """
         args = argument.split('.', 1)
@@ -179,5 +191,6 @@ class HBNBCommand(cmd.Cmd):
         else:
             return argument
 
+
 if __name__ == '__main__':
-	HBNBCommand().cmdloop()
+    HBNBCommand().cmdloop()
