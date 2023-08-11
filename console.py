@@ -24,7 +24,6 @@ class HBNBCommand(cmd.Cmd):
         return True
     def do_EOF(self, argument):
         """ Defines EOF option"""
-        print()
         return True
     def emptyline(self):
         """ Defines Empty option"""
