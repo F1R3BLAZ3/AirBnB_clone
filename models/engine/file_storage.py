@@ -45,32 +45,35 @@ class FileStorage:
     def new(self, obj):
         """Adds a new object to the dictionary."""
         key = "{}.{}".format(obj.__class__.__name__, obj.id)
-        FileStorage.__objects[key] = obj
+        self.__objects[key] = obj
 
     def save(self):
         """Serializes objects and saves them to the file."""
         obj_dict = {}
-        for key, obj in FileStorage.__objects.items():
+        for key, obj in self.__objects.items():
             # convert the values to a dictionary using our save_to_dict()
             obj_dict[key] = obj.to_dict()
             # open the file path for writing (serialization)
-        with open(FileStorage.__file_path, 'w') as file:
+        with open(self.__file_path, 'w') as file:
             # dump the serialized object into the file
             json.dump(obj_dict, file)
 
     def reload(self):
         """Deserializes objects and loads them from the file."""
         if os.path.exists(self.__file_path):
-            with open(self.__file_path, 'r', encoding="UTF8") as file:
-                obj_dict = json.load(file)
-                for key, obj_data in obj_dict.items():
-                    class_name = obj_data["__class__"]
-                    if class_name in globals():
-                        cls = globals().get(class_name)
-                        if cls:
-                            cls_obj = cls(**obj_data)
-                            key = "{}.{}".format(
-                                cls_obj.__class__.__name__, cls_obj.id)
-                            self.__objects[key] = cls_obj
+            try:
+                with open(self.__file_path, 'r', encoding="UTF8") as file:
+                    obj_dict = json.load(file)
+                    for key, obj_data in obj_dict.items():
+                        class_name = obj_data["__class__"]
+                        if class_name in globals():
+                            cls = globals().get(class_name)
+                            if cls:
+                                cls_obj = cls(**obj_data)
+                                key = "{}.{}".format(
+                                    cls_obj.__class__.__name__, cls_obj.id)
+                                self.__objects[key] = cls_obj
+            except json.JSONDecodeError:
+                self.__objects = {}  # Handle JSON decoding error by resetting __objects
         else:
             self.__objects = {}  # Reset __objects to an empty dictionary

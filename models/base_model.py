@@ -74,6 +74,8 @@ class BaseModel:
         """Converts the instance to a dictionary representation."""
         instance_dict = self.__dict__.copy()
         instance_dict['__class__'] = self.__class__.__name__  # Add class name
-        instance_dict['created_at'] = self.created_at.isoformat()
-        instance_dict['updated_at'] = self.updated_at.isoformat()
+        if 'created_at' in instance_dict:
+            instance_dict['created_at'] = self.created_at.isoformat()
+        if 'updated_at' in instance_dict:
+            instance_dict['updated_at'] = self.updated_at.isoformat()
         return instance_dict
