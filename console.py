@@ -175,23 +175,21 @@ class HBNBCommand(cmd.Cmd):
             print(num_instances)
 
     def precmd(self, argument):
-        """ Executed just before the command line is interpreted """
+        """Executed just before the command line is interpreted."""
         args = argument.split('.', 1)
         if len(args) == 2:
             _class = args[0]
             args = args[1].split('(', 1)
+            command = args[0]
             if len(args) == 2:
-                command = args[0]
                 args = args[1].split(')', 1)
                 if len(args) == 2:
                     _id = args[0]
                     other_arguments = args[1]
-                    if other_arguments:
-                        line = f"{command} {_class} {_id} {other_arguments}"
-                    else:
-                        line = f"{command} {_class} {_id}"
+                    line = f"{command} {_class} {_id} {other_arguments}"
                     return line
-        return argument
+        else:
+            return argument
 
     def do_count(self, argument):
         """Retrieve the number of instances of a class"""
@@ -210,6 +208,25 @@ class HBNBCommand(cmd.Cmd):
                 if className[0] == tokensC[0]:
                     num_instances += 1
             print(num_instances)
+
+    def do_show(self, argument):
+        """Prints the string representation of an instance based on the
+        class name and id"""
+        tokens = shlex.split(argument)
+        if len(tokens) == 0:
+            print("** class name missing **")
+        elif len(tokens) == 1:
+            print("** instance id missing **")
+        elif tokens[0] not in self.classes:
+            print("** class doesn't exist **")
+        else:
+            dic = models.storage.all()
+            keyU = tokens[0] + '.' + str(tokens[1])
+            if keyU in dic:
+                print(dic[keyU])
+            else:
+                print("** no instance found **")
+        return
 
 
 if __name__ == '__main__':
