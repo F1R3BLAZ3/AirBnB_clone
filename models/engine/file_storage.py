@@ -61,19 +61,14 @@ class FileStorage:
     def reload(self):
         """Deserializes objects and loads them from the file."""
         if os.path.exists(self.__file_path):
-            try:
-                with open(self.__file_path, 'r', encoding="UTF8") as file:
-                    obj_dict = json.load(file)
-                    for key, obj_data in obj_dict.items():
-                        class_name = obj_data["__class__"]
-                        if class_name in globals():
-                            cls = globals().get(class_name)
-                            if cls:
-                                cls_obj = cls(**obj_data)
-                                key = "{}.{}".format(
-                                    cls_obj.__class__.__name__, cls_obj.id)
-                                self.__objects[key] = cls_obj
-            except json.JSONDecodeError:
-                self.__objects = {}  # Handle JSON decoding error by resetting __objects
-        else:
-            self.__objects = {}  # Reset __objects to an empty dictionary
+            with open(self.__file_path, 'r', encoding="UTF8") as file:
+                obj_dict = json.load(file)
+                for key, obj_data in obj_dict.items():
+                    class_name = obj_data["__class__"]
+                    if class_name in globals():
+                        cls = globals().get(class_name)
+                        if cls:
+                            cls_obj = cls(**obj_data)
+                            key = "{}.{}".format(
+                                cls_obj.__class__.__name__, cls_obj.id)
+                            self.__objects[key] = cls_obj
