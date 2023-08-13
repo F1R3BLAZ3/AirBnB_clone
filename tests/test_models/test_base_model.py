@@ -22,7 +22,8 @@ class TestBaseModel(unittest.TestCase):
 
     def test_str_method(self):
         self.assertEqual(
-            str(self.model), f"[BaseModel] ({self.model.id}) {self.model.__dict__}")
+            str(self.model),
+            f"[BaseModel] ({self.model.id}) {self.model.__dict__}")
 
     def test_save_method_updates_updated_at(self):
         original_updated_at = self.model.updated_at

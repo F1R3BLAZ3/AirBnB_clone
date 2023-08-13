@@ -2,6 +2,7 @@ import unittest
 from models.amenity import Amenity
 from models.base_model import BaseModel
 
+
 class TestAmenity(unittest.TestCase):
 
     def test_amenity_inherits_from_base_model(self):
@@ -29,6 +30,7 @@ class TestAmenity(unittest.TestCase):
         self.assertIn("[Amenity]", str_rep)
         self.assertIn(amenity.id, str_rep)
         self.assertIn(str(amenity.__dict__), str_rep)
+
 
 if __name__ == '__main__':
     unittest.main()
