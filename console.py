@@ -186,8 +186,10 @@ class HBNBCommand(cmd.Cmd):
                 if len(args) == 2:
                     _id = args[0]
                     other_arguments = args[1]
-                    line = command + " " + _class + " " + _id + " "
-                    + other_arguments
+                    if other_arguments:
+                        line = f"{command} {_class} {_id} {other_arguments}"
+                    else:
+                        line = f"{command} {_class} {_id}"
                     return line
         return argument
 
