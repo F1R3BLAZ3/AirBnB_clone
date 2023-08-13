@@ -193,6 +193,24 @@ class HBNBCommand(cmd.Cmd):
                     return line
         return argument
 
+    def do_count(self, argument):
+        """Retrieve the number of instances of a class"""
+        tokensC = shlex.split(argument)
+        dic = models.storage.all()
+        num_instances = 0
+        if len(tokensC) == 0:
+            print("** class name missing **")
+            return
+        if tokensC[0] not in self.classes:
+            print("** class doesn't exist **")
+            return
+        else:
+            for key in dic:
+                className = key.split('.')
+                if className[0] == tokensC[0]:
+                    num_instances += 1
+            print(num_instances)
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
