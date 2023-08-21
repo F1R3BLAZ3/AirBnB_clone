@@ -66,13 +66,28 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.locations:hover .popover,
-.amenities:hover .popover {
+div:hover > .popover {
     display: block;
-    z-index: 1;
+    cursor: pointer;
+    
+  }
+
+  .popover h2 {
+    font-size: 16px;
+}
+.popover li {
+    margin: 10px 0px 5px 0px; 
+    list-style: none;
 }
 
-.popover h2 {
-    font-size: 16px;
-    margin: 5px 0;
+.filters .locations ul {
+    padding: 0.5em 0 1em 1em;
+  }
+  
+.filters .locations li {
+    margin: 0 0 0 5%;
+    padding: 0.2em;
 }
+.filters .amenities ul {
+    padding: 2em 0 2em 3em;
+  }
