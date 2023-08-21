@@ -20,6 +20,11 @@
     z-index: -1;
 }
 
+.information {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .place h2 {
     font-size: 30px;
     text-align: center;
