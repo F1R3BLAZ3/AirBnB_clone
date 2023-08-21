@@ -6,9 +6,7 @@
     border-radius: 4px;
     display: flex;
     position: relative;
-    justify-content: flex-end;
     align-items: center;
-    padding-right: 30px;
 }
 
 .filters button {
