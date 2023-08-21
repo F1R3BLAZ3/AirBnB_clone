@@ -22,3 +22,4 @@ tests/test_models/__pycache__/test_review.cpython-38.pyc
 tests/test_models/__pycache__/test_state.cpython-38.pyc
 tests/test_models/__pycache__/test_user.cpython-38.pyc
 w3c_validator.py
+web_static/styles/5-filters copy.css
